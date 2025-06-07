@@ -78,7 +78,7 @@ section {
 .timeline-card p {
   display: none;           /* Hide the paragraph by default */
   position: absolute;      /* Position it over the card */
-  top: -1em;                  /* Start at the very top of the card */
+  top: 0;                  /* Start at the very top of the card */
   left: 0;                 /* Start at the very left of the card */
   width: 100%;             /* Make it as wide as the card */
   height: 100%;            /* Make it as tall as the card */
@@ -142,5 +142,62 @@ footer{
     max-width: 400px;         /* Limit max width for readability */
     min-width: 0;             /* Allow shrinking */
   }
+}
+
+/* Make the font size of input boxes the same as their labels and adjust height */
+/* This targets all large form controls in the newsletter form */
+#newsletter-email,
+#newsletter-name {
+  font-size: 1rem;        /* Match the default label font size */
+  height: 2.5em;          /* Adjust height to look balanced with the label */
+  padding: 0.5em 1em;     /* Add some padding for comfort */
+  box-sizing: border-box; /* Make sure padding doesn't increase width */
+}
+
+/* RTL support: When .rtl class is on the body, adjust layout for right-to-left */
+
+/* Make header content reverse direction for RTL */
+body.rtl .header-content {
+  flex-direction: row-reverse; /* Logo on the right, text on the left */
+}
+
+/* Make sure the logo stays on the right in RTL and text on the left */
+body.rtl .header-content img {
+  order: 2; /* Move logo to the right */
+  margin-left: 2em; /* Add space between text and logo */
+  margin-right: 0;
+}
+
+body.rtl .header-text {
+  order: 1; /* Text comes first (on the left in RTL) */
+}
+
+/* Make timeline cards scroll from right to left in RTL */
+body.rtl section {
+  direction: rtl; /* Content flows right-to-left */
+}
+
+/* Make timeline cards themselves still left-aligned inside the row */
+body.rtl .timeline-card {
+  text-align: right; /* Align text to the right */
+}
+
+/* Make three-column section text align right in RTL */
+body.rtl .text-center,
+body.rtl .p-4 {
+  text-align: right !important;
+}
+
+/* Optional: reverse order of columns for RTL if needed */
+body.rtl .row {
+  flex-direction: row-reverse;
+}
+
+/* Newsletter form: align labels and inputs to the right in RTL */
+body.rtl label,
+body.rtl input,
+body.rtl .form-label {
+  text-align: right;
+  direction: rtl;
 }
 

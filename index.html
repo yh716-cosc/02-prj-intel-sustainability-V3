@@ -270,6 +270,70 @@
 
   <!-- Add Bootstrap JavaScript before closing </body> tag for accordion to work -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Add this script before the closing </body> tag -->
+<script>
+// Beginner-friendly script to detect Google Translate RTL languages and adjust layout
+
+// List of RTL language codes used by Google Translate
+var rtlLangs = [
+  'ar', // Arabic
+  'he', // Hebrew
+  'fa', // Persian
+  'ur', // Urdu
+  'ps', // Pashto
+  'sd', // Sindhi
+  'ug', // Uyghur
+  'yi'  // Yiddish
+];
+
+// Function to check if the current language is RTL
+function isRtlLang(lang) {
+  return rtlLangs.some(function(code) {
+    // Google Translate may use 'ar', 'ar-SA', etc.
+    return lang && lang.toLowerCase().indexOf(code) === 0;
+  });
+}
+
+// Function to set RTL direction and adjust layout
+function setRtlLayout() {
+  // Set the direction attribute on the html and body tags
+  document.documentElement.setAttribute('dir', 'rtl');
+  document.body.setAttribute('dir', 'rtl');
+  // Add a class for extra RTL styling if needed
+  document.body.classList.add('rtl');
+}
+
+// Function to set LTR direction and layout (for switching back)
+function setLtrLayout() {
+  document.documentElement.setAttribute('dir', 'ltr');
+  document.body.setAttribute('dir', 'ltr');
+  document.body.classList.remove('rtl');
+}
+
+// Function to detect Google Translate's language
+function detectGoogleTranslateLang() {
+  // Google Translate sets a <html lang="..."> attribute
+  var htmlLang = document.documentElement.getAttribute('lang');
+  // Google Translate may also add a <meta name="google" content="notranslate">, but we use lang
+  return htmlLang;
+}
+
+// Function to check and apply RTL if needed
+function checkAndApplyRtl() {
+  var lang = detectGoogleTranslateLang();
+  if (isRtlLang(lang)) {
+    setRtlLayout();
+  } else {
+    setLtrLayout();
+  }
+}
+
+// Run on page load
+checkAndApplyRtl();
+
+// Also check periodically in case Google Translate changes the language dynamically
+setInterval(checkAndApplyRtl, 1000);
+</script>
   
 </body>
 </html>
